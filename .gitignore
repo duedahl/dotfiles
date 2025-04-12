@@ -1,0 +1,12 @@
+# Ignore common temporary files
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Ignore backup files
+*.bak
+*.backup
+
+# Ignore log files that might be created
+*.log
