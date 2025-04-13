@@ -21,7 +21,7 @@ $env.config = {
   }
   buffer_editor: "nvim"               # Set your preferred editor
   use_ansi_coloring: true
-  edit_mode: vi                       # emacs or vi
+  edit_mode: emacs                    # emacs or vi
   render_right_prompt_on_last_line: false
 }
 
@@ -35,31 +35,6 @@ $env.PATH = ($env.PATH | split row (char esep) | append [
 # Set preferred editor
 $env.EDITOR = "nvim"
 $env.VISUAL = "nvim"
-
-# Set Prompt
-# ----------
-$env.PROMPT_COMMAND = { ||
-  # Create a simple but informative prompt with git status
-  let dir = ($env.PWD | str replace $nu.home-path "~")
-  let branch = (do { git branch --show-current } | complete | if ($in.exit_code == 0) { $in.stdout | str trim } else { "" })
-  let git_status = (do { git status --porcelain } | complete | if ($in.exit_code == 0) { $in.stdout | str trim } else { "" })
-  
-  let git_indicators = if ($git_status | is-empty) {
-    ""
-  } else {
-    "*"
-  }
-  
-  let git_prompt = if ($branch | is-empty) {
-    ""
-  } else {
-    $" [($branch)($git_indicators)]"
-  }
-  
-  let time_prompt = (date now | format date '%H:%M:%S')
-  
-  $"($time_prompt) ($dir)($git_prompt)> "
-}
 
 # Aliases
 # -------
@@ -102,3 +77,8 @@ def extract [file: path] {
   }
 }
 
+
+# Set Prompt
+# ----------
+mkdir ($nu.data-dir | path join "vendor/autoload")
+starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
