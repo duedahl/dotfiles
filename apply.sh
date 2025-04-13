@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Define dotfiles directory
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -17,13 +16,20 @@ PACKAGES=$(find "$DOTFILES_DIR" -mindepth 1 -maxdepth 1 -type d -not -path "*/\.
 # Activate each package
 for PACKAGE in $PACKAGES; do
     echo "Activating $PACKAGE..."
-    stow -d "$DOTFILES_DIR" -t "$HOME" -R "$PACKAGE"
+    
+    # Use --verbose to see exactly what's happening
+    # Use --no-folding to ensure all directories are fully symlinked
+    # Use -R to restow (remove and then stow again)
+    stow -d "$DOTFILES_DIR" -t "$HOME" --verbose --no-folding -R "$PACKAGE"
     
     # Check result
     if [ $? -eq 0 ]; then
         echo "Activated $PACKAGE successfully"
     else
         echo "Failed to activate $PACKAGE"
+        # Optional: add --adopt if you want to replace existing files
+        # echo "Trying again with --adopt..."
+        # stow -d "$DOTFILES_DIR" -t "$HOME" --verbose --no-folding --adopt "$PACKAGE"
     fi
 done
 
