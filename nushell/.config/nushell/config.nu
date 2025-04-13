@@ -1,6 +1,30 @@
 # Nushell Config File
 # ==================
-# Version: 0.88.0 or higher
+
+# Launch with tmux
+# ----------------
+def should_launch_tmux [] {
+    # Check if tmux is installed
+    let has_tmux = (which tmux | length) > 0
+
+    # Check if we're already in a tmux session
+    let in_tmux = (echo $env | get -i TMUX | default "") != ""
+
+    # Return true if tmux is installed and we're not already in a session
+    $has_tmux and (not $in_tmux)
+}
+
+# Launch tmux when nushell starts, if appropriate
+if (should_launch_tmux) {
+    # If there's an existing tmux session, attach to it, otherwise create a new one
+    let sessions = (^tmux list-sessions -F "#{session_name}" | lines | length)
+    if $sessions > 0 {
+        ^tmux attach
+    } else {
+        ^tmux new-session
+    }
+}
+
 
 # General Settings
 # ----------------
