@@ -2,6 +2,8 @@ eval $(starship init bash)
 
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
+# Ensure bash is default shell from within bash session
+export SHELL=$(which bash);
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
