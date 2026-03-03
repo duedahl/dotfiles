@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+i3lock-color \
+  --color 1a1a1a \
+  --ring-color cc4400 \
+  --ringver-color ff6600 \
+  --ringwrong-color ff2200 \
+  --keyhl-color ff6600 \
+  --bshl-color ff2200 \
+  --separator-color 00000000 \
+  --inside-color 1a1a1abb \
+  --insidever-color 1a1a1abb \
+  --insidewrong-color 1a1a1abb \
+  --line-color 00000000 \
+  --verif-color ff6600 \
+  --wrong-color ff2200 \
+  --time-color ff8833 \
+  --date-color cc5500 \
+  --verif-text "..." \
+  --wrong-text "Incorrect." \
+  --noinput-text "" \
+  --radius 100 \
+  --ring-width 10 \
+  --time-str "%H:%M" \
+  --date-str "%A, %d %B"

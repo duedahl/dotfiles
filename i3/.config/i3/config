@@ -48,7 +48,7 @@ bindsym $mod+Return exec wezterm
 bindsym $mod+Shift+q kill
 
 # Lock screen
-bindsym $mod+L exec i3lock
+bindsym $mod+L exec ~/.config/i3/lock.sh 
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id SHELL=$(which bash) dmenu_run
